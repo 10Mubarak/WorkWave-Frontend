@@ -11,7 +11,7 @@ import MyPostings from '../pages/MyPostings';
 import PostJob from '../pages/PostJob';
 import AdminUsers from '../pages/AdminUsers';
 import AdminJobs from '../pages/AdminJobs';
-import Explore from '../pages/explore';
+import Explore from '../pages/Explore';
 import EditJob from '../pages/EditJob';
 import Profile from '../pages/Profile'; // 👈 Added Profile Import
 
