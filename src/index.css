@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* src/index.css */
+:root {
+  /* Define your font name here */
+  --main-font: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F9FAFB;
+  /* Matches your Register page background */
+}
+
+/* Optional: Ensure inputs and buttons inherit the font */
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Add this to your index.css to make the JS logic work better */
+@media (max-width: 768px) {
+  .links-desktop {
+    display: none !important;
+  }
+
+  .hamburger-visible {
+    display: block !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .links-desktop {
+    display: flex !important;
+  }
+
+  .hamburger-visible {
+    display: none !important;
+  }
+}

@@ -1,0 +1,18 @@
+/* src/index.css */
+:root {
+  /* Define your font name here */
+  --main-font: 'Inter', sans-serif !important; 
+}
+
+body {
+  margin: 0;
+  font-family: var(--main-font) !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  background-color: #F9FAFB; /* Matches your Register page background */
+}
+
+/* Optional: Ensure inputs and buttons inherit the font */
+input, button, textarea, select {
+  font-family: inherit !important;
+}
