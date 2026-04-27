@@ -142,7 +142,6 @@ const EditJob = () => {
           />
         </div>
 
-        {/* ACTION BUTTONS */}
         <div style={s.btnGroup}>
           <button type="button" onClick={() => navigate(-1)} style={s.cancelBtn}>
             <X size={18} /> Cancel
@@ -159,7 +158,7 @@ const EditJob = () => {
 // --- STYLING ---
 const s = {
   container: {
-    padding: '120px 24px 60px 24px', // Space for fixed Navigation
+    padding: '120px 24px 60px 24px',
     maxWidth: '900px',
     margin: '0 auto',
     fontFamily: "'Inter', sans-serif"
