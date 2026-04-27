@@ -195,8 +195,8 @@ const td = { padding: '16px 24px', verticalAlign: 'middle' };
 
 // Mobile Specific
 const mobileList = { display: 'flex', flexDirection: 'column' };
-const mobileUserCard = { padding: '16px 12px', borderBottom: '1px solid #F3F4F6', paddingBottom: '30px',  };
-const mobileCardTop = { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' };
+const mobileUserCard = { padding: '16px 6px', borderBottom: '1px solid #F3F4F6', paddingBottom: '30px' };
+const mobileCardTop = { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px', gap: '8px' };
 const mobileCardBottom = { display: 'flex', justifyContent: 'space-between', alignItems: 'center' };
 
 const userInfo = { display: 'flex', alignItems: 'center', gap: '12px' };
@@ -208,7 +208,7 @@ const userBadge = { backgroundColor: '#F3F4F6', color: '#374151', padding: '4px 
 const adminBadge = { backgroundColor: '#EEF2FF', color: '#4338CA', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '700', textTransform: 'capitalize', display: 'inline-flex', alignItems: 'center', gap: '4px' };
 
 const dateText = { fontSize: '0.85rem', color: '#6B7280', display: 'flex', alignItems: 'center', gap: '6px' };
-const deleteBtn = { background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', padding: '8px', borderRadius: '6px' };
+const deleteBtn = { background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', padding: '8px', borderRadius: '6px', flexShrink: 0 };
 const statusMsg = { padding: '100px', textAlign: 'center', fontSize: '1rem', fontWeight: '600', color: '#6B7280' };
 
 // ── MODAL STYLES ──────────────────────────────────────────────────────────────
