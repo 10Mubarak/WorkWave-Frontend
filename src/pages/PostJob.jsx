@@ -1,6 +1,105 @@
 import React, { useState } from 'react';
 import { usePostJob } from '../hooks/usePostJob';
-import { Briefcase, MapPin, DollarSign, AlignLeft, Building2, Globe } from 'lucide-react';
+import { Briefcase, MapPin, DollarSign, AlignLeft, Building2, Globe, Sparkles, ArrowRight } from 'lucide-react';
+
+// Inject responsive + animation styles
+const STYLE_ID = 'post-job-styles';
+if (!document.getElementById(STYLE_ID)) {
+  const style = document.createElement('style');
+  style.id = STYLE_ID;
+  style.textContent = `
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+    .pj-wrap * { box-sizing: border-box; }
+
+    /* Fade-up entrance */
+    @keyframes pj-fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pj-pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.6; }
+    }
+    @keyframes pj-shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+
+    .pj-wrap {
+      animation: pj-fadeUp 0.55s ease both;
+    }
+    .pj-card {
+      animation: pj-fadeUp 0.65s 0.1s ease both;
+    }
+    .pj-section-row {
+      animation: pj-fadeUp 0.5s ease both;
+    }
+
+    /* Input focus glow */
+    .pj-input:focus,
+    .pj-select:focus,
+    .pj-textarea:focus {
+      outline: none;
+      border-color: #003A9B !important;
+      box-shadow: 0 0 0 4px rgba(0,58,155,0.10);
+      background: #fff !important;
+    }
+
+    /* Submit button shimmer on hover */
+    .pj-submit:not(:disabled):hover {
+      background-position: right center;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 32px rgba(0,58,155,0.38);
+    }
+    .pj-submit:not(:disabled):active {
+      transform: translateY(0);
+    }
+    .pj-submit:disabled {
+      animation: pj-pulse 1.4s ease infinite;
+      cursor: not-allowed;
+    }
+
+    /* Responsive grid: 1 col mobile, 2 col tablet+ */
+    .pj-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 640px) {
+      .pj-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Outer container padding */
+    @media (max-width: 540px) {
+      .pj-outer { padding: 0 0px !important; }
+      .pj-card  { padding: 28px 18px !important; }
+      .pj-title { font-size: 2rem !important; }
+    }
+    @media (min-width: 481px) and (max-width: 768px) {
+      .pj-outer { padding: 0 24px !important; }
+      .pj-card  { padding: 36px 28px !important; }
+    }
+    @media (min-width: 769px) {
+      .pj-outer { padding: 0 32px !important; }
+    }
+
+    /* Label icon alignment */
+    .pj-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Divider line */
+    .pj-divider {
+      height: 1px;
+      background: linear-gradient(90deg, #E8EDF8 0%, #C7D4F0 50%, #E8EDF8 100%);
+      margin: 36px 0;
+    }
+  `;
+  document.head.appendChild(style);
+}
 
 const PostJob = () => {
   const { postJob, loading, error } = usePostJob();
@@ -9,43 +108,48 @@ const PostJob = () => {
   });
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    postJob(form);
-  };
+  const handleSubmit = (e) => { e.preventDefault(); postJob(form); };
 
   return (
-    <div style={container}>
+    <div className="pj-outer pj-wrap" style={outerContainer}>
+
+      {/* ── Header ── */}
       <div style={headerSection}>
-        <div style={badgeStyle}>For Employers</div>
-        <h1 style={titleStyle}>Post a New Wave<span>.</span></h1>
+        <div style={badgeStyle}>
+          <Sparkles size={13} style={{ marginRight: 5 }} />
+          For Employers
+        </div>
+        <h1 className="pj-title" style={titleStyle}>
+          Post a New Wave<span style={dotAccent}>.</span>
+        </h1>
         <p style={subtitleStyle}>Reach the most talented developers and designers in the ecosystem.</p>
       </div>
 
-      <form onSubmit={handleSubmit} style={formCard}>
+      {/* ── Form Card ── */}
+      <form onSubmit={handleSubmit} className="pj-card" style={formCard}>
+
         {error && <div style={errorBox}>{error}</div>}
 
-        {/* SECTION 1: ROLE DETAILS */}
-        <div style={sectionHeader}>
+        {/* Section 1 */}
+        <div className="pj-section-row" style={sectionHeader}>
           <div style={sectionNumber}>1</div>
           <h3 style={sectionTitle}>Role Details</h3>
         </div>
 
-        <div style={inputGrid}>
+        <div className="pj-grid">
           <div style={inputGroup}>
-            <label style={labelStyle}><Briefcase size={14} /> Job Title</label>
-            <input name="title" placeholder="e.g. Senior Product Designer" onChange={handleChange} required style={inputStyle} />
+            <label className="pj-label" style={labelStyle}><Briefcase size={14} /> Job Title</label>
+            <input className="pj-input" name="title" placeholder="e.g. Senior Product Designer" onChange={handleChange} required style={inputStyle} />
           </div>
 
           <div style={inputGroup}>
-            <label style={labelStyle}><Building2 size={14} /> Company Name</label>
-            <input name="company" placeholder="e.g. WorkWave Inc." onChange={handleChange} required style={inputStyle} />
+            <label className="pj-label" style={labelStyle}><Building2 size={14} /> Company Name</label>
+            <input className="pj-input" name="company" placeholder="e.g. WorkWave Inc." onChange={handleChange} required style={inputStyle} />
           </div>
 
           <div style={inputGroup}>
-            <label style={labelStyle}><Globe size={14} /> Job Type</label>
-            <select name="type" onChange={handleChange} style={selectStyle}>
+            <label className="pj-label" style={labelStyle}><Globe size={14} /> Job Type</label>
+            <select className="pj-select" name="type" onChange={handleChange} style={selectStyle}>
               <option value="Full-time">Full-time</option>
               <option value="Part-time">Part-time</option>
               <option value="Contract">Contract</option>
@@ -54,199 +158,97 @@ const PostJob = () => {
           </div>
 
           <div style={inputGroup}>
-            <label style={labelStyle}><MapPin size={14} /> Location</label>
-            <input name="location" placeholder="e.g. Remote or Lagos, Nigeria" onChange={handleChange} required style={inputStyle} />
+            <label className="pj-label" style={labelStyle}><MapPin size={14} /> Location</label>
+            <input className="pj-input" name="location" placeholder="e.g. Remote or Lagos, Nigeria" onChange={handleChange} required style={inputStyle} />
           </div>
         </div>
 
-        {/* SECTION 2: COMPENSATION & DESCRIPTION */}
-        <div style={{ ...sectionHeader, marginTop: '40px' }}>
+        <div className="pj-divider" />
+
+        {/* Section 2 */}
+        <div className="pj-section-row" style={sectionHeader}>
           <div style={sectionNumber}>2</div>
           <h3 style={sectionTitle}>Salary & Description</h3>
         </div>
 
         <div style={inputGroup}>
-          <label style={labelStyle}><DollarSign size={14} /> Salary Range (Optional)</label>
-          <input name="salary" placeholder="e.g. $50k - $80k or ₦500,000 - ₦800,000" onChange={handleChange} style={inputStyle} />
+          <label className="pj-label" style={labelStyle}><DollarSign size={14} /> Salary Range <span style={optionalTag}>(Optional)</span></label>
+          <input className="pj-input" name="salary" placeholder="e.g. $50k–$80k or ₦500,000–₦800,000" onChange={handleChange} style={inputStyle} />
         </div>
 
-        <div style={{ ...inputGroup, marginTop: '24px' }}>
-          <label style={labelStyle}><AlignLeft size={14} /> Description</label>
-          <textarea 
-            name="description" 
-            placeholder="What will they do? What are the requirements?" 
-            onChange={handleChange} 
-            required 
-            style={textareaStyle} 
+        <div style={{ ...inputGroup, marginTop: '20px' }}>
+          <label className="pj-label" style={labelStyle}><AlignLeft size={14} /> Description</label>
+          <textarea
+            className="pj-textarea"
+            name="description"
+            placeholder="What will they do? What skills and experience are required?"
+            onChange={handleChange}
+            required
+            style={textareaStyle}
           />
         </div>
 
+        {/* Footer */}
         <div style={footerSection}>
-           <button type="submit" disabled={loading} style={submitBtnStyle}>
-            {loading ? 'Publishing Wave...' : 'Publish Job Posting'}
-          </button>
-          <p style={finePrint}>By publishing, you agree to WorkWave's community guidelines.</p>
+          <div style={footerInner}>
+            <button type="submit" disabled={loading} className="pj-submit" style={submitBtnStyle}>
+              {loading ? 'Publishing Wave…' : (
+                <><span>Publish Job Posting</span><ArrowRight size={17} style={{ marginLeft: 8 }} /></>
+              )}
+            </button>
+            <p style={finePrint}>By publishing, you agree to WorkWave's community guidelines.</p>
+          </div>
         </div>
+
       </form>
     </div>
   );
 };
 
-// --- PREMIUM STYLES ---
+// ── Styles ────────────────────────────────────────────────────────────────────
 
-const container = { 
-  maxWidth: '720px', 
-  margin: '40px auto', 
-  padding: '0 20px',
-  fontFamily: "'Inter', sans-serif" 
-};
+const outerContainer  = { maxWidth: '850px', margin: '0 auto', paddingBottom: '80px', };
 
-const headerSection = { marginBottom: '40px' };
+const headerSection   = { paddingTop: '52px', marginBottom: '36px' };
 
-const badgeStyle = {
-  backgroundColor: '#EBF4FF',
-  color: '#003A9B',
-  padding: '6px 12px',
-  borderRadius: '20px',
-  fontSize: '0.75rem',
-  fontWeight: '700',
-  textTransform: 'uppercase',
-  display: 'inline-block',
-  marginBottom: '16px'
-};
+const badgeStyle      = { display: 'inline-flex', alignItems: 'center', backgroundColor: '#EEF2FF', color: '#003A9B', fontSize: '0.72rem', fontWeight: '700', letterSpacing: '0.08em', textTransform: 'uppercase', padding: '6px 14px', borderRadius: '99px', marginBottom: '20px', border: '1px solid #C7D4F0' };
 
-const titleStyle = { 
-  fontSize: '2.5rem', 
-  fontWeight: '800', 
-  color: '#1A1A1A', 
-  letterSpacing: '-1.5px',
-  margin: 0
-};
+const titleStyle      = { fontSize: '2.6rem', fontWeight: '800', color: '#1A1A1A', margin: '0 0 12px', lineHeight: 1.1, letterSpacing: '-0.02em' };
 
-const subtitleStyle = { 
-  color: '#666', 
-  marginTop: '8px', 
-  fontSize: '1.1rem',
-  lineHeight: '1.5' 
-};
+const dotAccent       = { color: '#003A9B' };
 
-const formCard = { 
-  backgroundColor: '#FFF', 
-  padding: '48px', 
-  borderRadius: '24px', 
-  border: '1px solid #F0F0F0', 
-  boxShadow: '0 20px 50px rgba(0,0,0,0.04)' 
-};
+const subtitleStyle   = { color: '#666', fontSize: '1rem', margin: 0, lineHeight: 1.6, maxWidth: '480px' };
 
-const sectionHeader = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '12px',
-  marginBottom: '24px'
-};
+const formCard        = { backgroundColor: '#fff', borderRadius: '20px', padding: '44px 40px', border: '1px solid #E4E9F5', boxShadow: '0 4px 6px rgba(0,0,0,0.04), 0 20px 60px rgba(0,58,155,0.06)' };
 
-const sectionNumber = {
-  width: '28px',
-  height: '28px',
-  backgroundColor: '#003A9B',
-  color: '#FFF',
-  borderRadius: '50%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontSize: '0.8rem',
-  fontWeight: '700'
-};
+const errorBox        = { backgroundColor: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626', padding: '14px 18px', borderRadius: '10px', fontSize: '0.875rem', marginBottom: '28px', fontWeight: '500' };
 
-const sectionTitle = {
-  fontSize: '1.1rem',
-  fontWeight: '700',
-  color: '#1A1A1A',
-  margin: 0
-};
+const sectionHeader   = { display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' };
 
-const inputGrid = { 
-  display: 'grid', 
-  gridTemplateColumns: '1fr 1fr', 
-  gap: '24px' 
-};
+const sectionNumber   = { width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#003A9B', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: '800', flexShrink: 0, };
 
-const inputGroup = { display: 'flex', flexDirection: 'column', gap: '10px' };
+const sectionTitle    = { fontWeight: '700', fontSize: '1.1rem', color: '#1A1A1A', margin: 0, letterSpacing: '-0.01em' };
 
-const labelStyle = { 
-  fontSize: '0.85rem', 
-  fontWeight: '600', 
-  color: '#4A5568', 
-  display: 'flex', 
-  alignItems: 'center', 
-  gap: '6px' 
-};
+const inputGroup      = { display: 'flex', flexDirection: 'column', gap: '8px' };
 
-const inputStyle = { 
-  padding: '14px', 
-  borderRadius: '12px', 
-  border: '1px solid #E2E8F0', 
-  fontSize: '1rem', 
-  outline: 'none', 
-  backgroundColor: '#F9FAFB',
-  transition: 'all 0.2s ease',
-  width: '100%',
-  boxSizing: 'border-box'
-};
+const labelStyle      = { fontSize: '0.82rem', fontWeight: '600', color: '#1A1A1A', letterSpacing: '0.01em' };
 
-// FIXED: Removed the SVG string that caused the Vite Parse Error
-const selectStyle = { 
-  ...inputStyle, 
-  cursor: 'pointer',
-  paddingRight: '40px',
-  backgroundImage: 'linear-gradient(45deg, transparent 50%, #4A5568 50%), linear-gradient(135deg, #4A5568 50%, transparent 50%)',
-  backgroundPosition: 'calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px)',
-  backgroundSize: '5px 5px, 5px 5px',
-  backgroundRepeat: 'no-repeat',
-  appearance: 'none',
-  WebkitAppearance: 'none'
-};
+const optionalTag     = { color: '#999', fontWeight: '400', marginLeft: '4px' };
 
-const textareaStyle = { 
-  ...inputStyle, 
-  minHeight: '180px', 
-  lineHeight: '1.6',
-  resize: 'vertical' 
-};
+const sharedField     = { width: '100%', padding: '13px 16px', border: '1.5px solid #E4E9F5', borderRadius: '10px', fontSize: '0.9rem', color: '#1A1A1A', backgroundColor: '#F8FAFF', transition: 'all 0.2s ease', fontFamily: "'DM Sans', sans-serif" };
 
-const footerSection = {
-  marginTop: '40px',
-  textAlign: 'center'
-};
+const inputStyle      = { ...sharedField };
 
-const submitBtnStyle = { 
-  width: '100%', 
-  backgroundColor: '#003A9B', 
-  color: '#FFF', 
-  padding: '18px', 
-  borderRadius: '14px', 
-  border: 'none', 
-  fontWeight: '700', 
-  fontSize: '1.1rem', 
-  cursor: 'pointer',
-  boxShadow: '0 10px 20px rgba(0, 58, 155, 0.2)',
-  transition: 'transform 0.2s ease'
-};
+const selectStyle     = { ...sharedField, cursor: 'pointer', appearance: 'none', backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 14px center' };
 
-const finePrint = {
-  fontSize: '0.8rem',
-  color: '#A0AEC0',
-  marginTop: '16px'
-};
+const textareaStyle   = { ...sharedField, minHeight: '160px', resize: 'vertical', lineHeight: '1.65' };
 
-const errorBox = { 
-  backgroundColor: '#FFF5F5', 
-  color: '#C53030', 
-  padding: '16px', 
-  borderRadius: '12px', 
-  marginBottom: '32px', 
-  fontSize: '0.9rem', 
-  border: '1px solid #FED7D7',
-  textAlign: 'center' 
-};
+const footerSection   = { marginTop: '36px', paddingTop: '28px', borderTop: '1px solid #F0F3FA' };
+
+const footerInner     = { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '12px' };
+
+const submitBtnStyle  = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '15px 32px', background: 'linear-gradient(135deg, #003A9B 0%, #0052CC 50%, #0070E0 100%)', backgroundSize: '200% auto', color: '#fff', border: 'none', borderRadius: '12px', fontSize: '0.95rem', fontWeight: '700', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 6px 20px rgba(0,58,155,0.28)', letterSpacing: '0.01em', fontFamily: "'DM Sans', sans-serif", width: '100%', maxWidth: '300px' };
+
+const finePrint       = { color: '#999', fontSize: '0.78rem', margin: 0, lineHeight: 1.5 };
+
 export default PostJob;

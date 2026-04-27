@@ -107,6 +107,10 @@ export const routerConfig = [
         element: <MyPostings />
       },
       {
+        path: "post-job",
+        element: <PostJob />
+      },
+      {
         path: "edit-job/:id",
         element: <EditJob />
       },

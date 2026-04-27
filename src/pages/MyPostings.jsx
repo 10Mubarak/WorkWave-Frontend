@@ -232,10 +232,10 @@ const MyPostings = () => {
 };
 
 // ── Styles ────────────────────────────────────────────────────────────────────
-const container = { padding: '0 16px', maxWidth: '1200px', margin: '0 auto', boxSizing: 'border-box' };
+const container = { padding: '0 0px', maxWidth: '1200px', margin: '0 auto', boxSizing: 'border-box' };
 const headerRow = { marginBottom: '28px', paddingTop: '40px' };
-const pageTitle = { fontSize: '1.7rem', fontWeight: '800', color: '#111827', margin: '0 0 6px' };
-const pageSubtitle = { color: '#6B7280', fontSize: '0.95rem', margin: 0 };
+const pageTitle = { fontSize: '1.9rem', fontWeight: '800', color: '#111827', margin: '0 0 6px' };
+const pageSubtitle = { color: '#6B7280', fontSize: '1rem', margin: 0 };
 
 const tableCard = { backgroundColor: '#FFF', borderRadius: '16px', border: '1px solid #E5E7EB', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' };
 const stateBox = { padding: '60px 24px', textAlign: 'center', color: '#9CA3AF', fontSize: '0.95rem' };
@@ -304,7 +304,7 @@ const modalHeader = {
 };
 
 const modalTitle = {
-  fontSize: '1.25rem',
+  fontSize: '1.5rem',
   fontWeight: '700',
   color: '#111827',
   margin: 0,

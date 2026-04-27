@@ -183,9 +183,9 @@ const AdminJobs = () => {
 };
 
 // --- STYLES ---
-const container = { padding: '0 20px', maxWidth: '1200px', margin: '0 auto' };
+const container = { padding: '0 0px', maxWidth: '1200px', margin: '0 auto' };
 const header = { marginBottom: '32px', paddingTop: '45px' };
-const title = { fontSize: '1.8rem', fontWeight: '800', color: '#111827', letterSpacing: '-0.5px' };
+const title = { fontSize: '1.9rem', fontWeight: '800', color: '#111827', letterSpacing: '-0.5px' };
 const subtitle = { color: '#6B7280', fontSize: '0.95rem' };
 
 const tableCard = { backgroundColor: '#FFF', borderRadius: '12px', border: '1px solid #E5E7EB', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' };

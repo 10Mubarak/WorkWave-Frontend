@@ -65,7 +65,7 @@ const Home = () => {
         <main style={feedSection}>
           <div style={feedHeader}>
             <h2 style={sectionTitle}>Featured Opportunities</h2>
-            <button style={filterButton} onClick={handleProtectedAction}>Latest Posts</button>
+            {/* <button style={filterButton} onClick={handleProtectedAction}>Latest Posts</button> */}
           </div>
 
           {loading ? (
@@ -78,7 +78,7 @@ const Home = () => {
             </div>
           ) : (
             <div style={jobGrid}>
-              {jobs.slice(0, 6).map((job) => (
+              {jobs.slice(0, 9).map((job) => (
                 <div key={job._id} style={jobCard}>
                   <div style={cardHeader}>
                     <div style={companyLogoPlaceholder}>
@@ -257,8 +257,8 @@ const filterButton = {
 
 const jobGrid = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-  gap: '28px'
+  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+  gap: '22px'
 };
 
 /* 🔥 PREMIUM JOB CARD */

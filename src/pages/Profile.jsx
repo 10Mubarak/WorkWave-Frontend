@@ -106,7 +106,8 @@ const s = {
     backgroundColor: '#FFFFFF',
     borderRadius: '20px',
     border: '1px solid #F3F4F6',
-    padding: '30px',
+    padding: '30px 10px',
+    overflow: 'hidden',
     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
   },
   cardTitle: {

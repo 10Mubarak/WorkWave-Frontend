@@ -181,9 +181,9 @@ const AdminUsers = () => {
 };
 
 // --- STYLES ---
-const container = { padding: '0 20px', maxWidth: '1200px', margin: '0 auto' };
+const container = { padding: '0 0px', maxWidth: '1250px', margin: '0 auto', width: '100%', };
 const header = { marginBottom: '32px', paddingTop: '45px' };
-const title = { fontSize: '1.8rem', fontWeight: '800', color: '#111827', letterSpacing: '-0.5px' };
+const title = { fontSize: '1.9rem', fontWeight: '800', color: '#111827', letterSpacing: '-0.5px' };
 const subtitle = { color: '#6B7280', fontSize: '0.95rem' };
 
 const tableCard = { backgroundColor: '#FFF', borderRadius: '12px', border: '1px solid #E5E7EB', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' };
@@ -195,7 +195,7 @@ const td = { padding: '16px 24px', verticalAlign: 'middle' };
 
 // Mobile Specific
 const mobileList = { display: 'flex', flexDirection: 'column' };
-const mobileUserCard = { padding: '0px', borderBottom: '1px solid #F3F4F6', paddingBottom: '30px' };
+const mobileUserCard = { padding: '16px 12px', borderBottom: '1px solid #F3F4F6', paddingBottom: '30px',  };
 const mobileCardTop = { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' };
 const mobileCardBottom = { display: 'flex', justifyContent: 'space-between', alignItems: 'center' };
 
@@ -231,7 +231,7 @@ const modalContainer = {
   backgroundColor: '#FFF',
   borderRadius: '16px',
   boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-  maxWidth: '400px',
+  maxWidth: '520px',
   width: '100%',
   overflow: 'hidden',
   border: '1px solid #E5E7EB'
