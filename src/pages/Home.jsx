@@ -5,6 +5,30 @@ import Navigation from '../components/Navigation';
 import { useJobs } from '../hooks/useJobs';
 import { AuthContext } from '../context/AuthContext';
 
+const loaderAnim = `
+  @keyframes bounce {
+    from { transform: translateY(0); opacity: 0.4; }
+    to   { transform: translateY(-12px); opacity: 1; }
+  }
+`;
+
+const loaderWrapStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+  gap: '8px',
+  background: '#F9FAFB',
+};
+
+const loaderDotStyle = {
+  width: '20px',
+  height: '20px',
+  borderRadius: '50%',
+  background: '#003A9B',
+  animation: 'bounce 0.6s infinite alternate',
+};
+
 const Home = () => {
   const { jobs, loading, error } = useJobs();
   const navigate = useNavigate();
@@ -14,6 +38,15 @@ const Home = () => {
     e.preventDefault();
     navigate('/login');
   };
+
+  if (loading) return (
+    <div style={loaderWrapStyle}>
+      <style>{loaderAnim}</style>
+      <div style={loaderDotStyle} />
+      <div style={{ ...loaderDotStyle, animationDelay: '0.15s' }} />
+      <div style={{ ...loaderDotStyle, animationDelay: '0.3s' }} />
+    </div>
+  );
 
   return (
     <>
@@ -68,11 +101,7 @@ const Home = () => {
             {/* <button style={filterButton} onClick={handleProtectedAction}>Latest Posts</button> */}
           </div>
 
-          {loading ? (
-            <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-              <p>Catching the latest waves... </p>
-            </div>
-          ) : error ? (
+          {error ? (
             <div style={{ textAlign: 'center', padding: '40px', color: '#dc2626' }}>
               <p>{error}</p>
             </div>
